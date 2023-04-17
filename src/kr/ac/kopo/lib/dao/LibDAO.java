@@ -37,7 +37,7 @@ public class LibDAO {
 		
 		
 	}
-	public void equalID(String Id) {
+	public int equalID(String Id) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(*) as cnt from t_member where id = ? ");
 		int cnt = 0;
@@ -45,14 +45,46 @@ public class LibDAO {
 			Connection conn = new ConnectionFactory().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		){
+			pstmt.setString(1, Id);
 			ResultSet rs = pstmt.executeQuery();
-			
-			cnt = rs.getInt("cnt");
-			
+			while(rs.next()) {
+				cnt = rs.getInt("cnt");
+				if(cnt > 0) {
+					return 1;
+				}
+			}
 			
 		} catch (Exception e) {
 		}
-
+		return 0;
+	}
+	
+	public MemberVO IdSearch(String rrm) {
+		
+		MemberVO member = null;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("select id from t_member where rrm = ?");
+		
+		try (
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			
+		){
+			pstmt.setString(1, rrm);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				
+				member = new MemberVO(id);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return member;
 	}
 }
 

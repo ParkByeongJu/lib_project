@@ -16,5 +16,10 @@ public class LibService {
 		libDao.insertMember(member);
 
 	}
+	
+	public MemberVO IdSearch(String Id) {
+		MemberVO member = libDao.IdSearch(Id);
+		return member;
+	}
 
 }

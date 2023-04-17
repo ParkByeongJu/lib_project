@@ -14,7 +14,12 @@ public class MemberVO {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	public MemberVO(String id) {
+		super();
+		this.Id = id;
+	}
+	
+	
 	public MemberVO(String id, String password, String name, String birth, String email, String phone) {
 		super();
 		this.Id = id;
