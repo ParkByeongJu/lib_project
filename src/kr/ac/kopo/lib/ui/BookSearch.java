@@ -2,14 +2,16 @@ package kr.ac.kopo.lib.ui;
 
 import java.util.Scanner;
 
-public class IdPasswordSearch extends MemberMainUI {
-	
+public class BookSearch extends MypageUI {
+
 	private int menu() {
-		System.out.println("----------------------------");
-		System.out.println("\tID 및 Password 찾기");
-		System.out.println("----------------------------");
-		System.out.println("1. ID 찾기");
-		System.out.println("2. Password 찾기");
+		System.out.println("\n--------------------------");
+		System.out.println("\t도서 검색");
+		System.out.println("--------------------------");
+		System.out.println("1. 전체 도서 검색");
+		System.out.println("2. 제목으로 검색");
+		System.out.println("3. 저자로 검색");
+		System.out.println("4. 출판사로 검색");
 		System.out.println("0. 이전 페이지로 돌아가기");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
@@ -26,10 +28,16 @@ public class IdPasswordSearch extends MemberMainUI {
 			ILibUI ui = null;
 			switch (type) {
 			case 1:
-				System.out.println("1. ID 찾기");
+				ui = new BookAllSearch();
 				break;
 			case 2:
-				System.out.println("2. Password 찾기");
+				ui = new BookNameSearch();
+				break;
+			case 3:
+				ui = new BookWriterSearch();
+				break;
+			case 4:
+				ui = new BookPublisherSearch();
 				break;
 			case 0:
 				super.execute();

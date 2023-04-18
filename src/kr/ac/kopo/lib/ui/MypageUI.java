@@ -2,17 +2,16 @@ package kr.ac.kopo.lib.ui;
 
 import java.util.Scanner;
 
-public class MemberMainUI extends LibUI {
-	
-	
+public class MypageUI extends MemberMainUI {
 	
 	private int menu() {
 		System.out.println("--------------------------");
-		System.out.println("\t로그인 창");
+		System.out.println("\t마이 페이지");
 		System.out.println("--------------------------");
-		System.out.println("1. 로그인");
-		System.out.println("2. 관리자 로그인");
-		System.out.println("3. 회원가입");
+		System.out.println("1. 회원정보 변경");
+		System.out.println("2. 도서 검색");
+		System.out.println("3. 도서 대출");
+		System.out.println("4. 도서 반납");
 		System.out.println("0. 이전 페이지로 돌아가기");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
@@ -29,13 +28,16 @@ public class MemberMainUI extends LibUI {
 			ILibUI ui = null;
 			switch (type) {
 			case 1:
-				ui = new LoginUI();
+				System.out.println("회원정보변경 변경");
 				break;
 			case 2:
-				System.out.println("관리자 로그인");
+				ui = new BookSearch();
 				break;
 			case 3:
-				ui = new AddMemberUI();
+				ui = new BookRent();
+				break;
+			case 4:
+				System.out.println("도서 반납");
 				break;
 			case 0:
 				super.execute();
