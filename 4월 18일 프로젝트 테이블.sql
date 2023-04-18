@@ -32,6 +32,7 @@ CREATE TABLE t_member (
   phone    VARCHAR2(20) NOT NULL
 );
 
+drop table t_member;
 
 select * from t_member; 
 
@@ -53,7 +54,7 @@ CREATE TABLE T_BOOK(
 
 
 INSERT INTO t_book(name, writer, publisher, store)
-VALUES('개미', '베르나르', '광문각', TO_DATE(sysdate, 'yyyy-mm-dd'));
+VALUES('디지털 영상신호처리', '김형오', '광문각', TO_DATE(sysdate, 'yyyy-mm-dd'));
 
 commit;
 
@@ -62,7 +63,7 @@ from t_book;
 
 CREATE TABLE T_RENTAL(
      RENTAL_ID INT PRIMARY KEY
-    ,BOOK_NAME VARCHAR2(100)
+    ,BOOK_NAME VARCHAR2(100) unique
     ,MEMBER_ID VARCHAR2(20)
     ,RENTAL_DATE DATE
     ,return_date date,
@@ -73,6 +74,8 @@ select * from T_rental;
 
 CREATE SEQUENCE seq_t_RENTAL START WITH 1 INCREMENT BY 1 NOCACHE;
 
-drop table t_rental;
+ALTER TABLE T_RENTAL ADD CONSTRAINT UC_BOOK_MEMBER UNIQUE (BOOK_NAME);
+
+drop SEQUENCE seq_t_RENTAL;
 
 ALTER TABLE t_rental ADD COLUMN return_date date; 

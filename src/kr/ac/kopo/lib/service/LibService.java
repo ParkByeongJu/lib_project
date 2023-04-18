@@ -25,6 +25,7 @@ public class LibService {
 		
 		return bookList;
 	}
+
 	
 	public List<BookVO> searchByName(String Name) {
 		List<BookVO> bookList = libDao.searchName(Name);
@@ -44,10 +45,8 @@ public class LibService {
 		return bookList;
 	}
 	
-	public void rentalBook(String rentbook) throws Exception {
-			
-			libDao.bookRent(rentbook);
-			
+	public void rentalBook(String bookname) throws Exception {
+	    libDao.bookRent(bookname);
 	}
 
 }

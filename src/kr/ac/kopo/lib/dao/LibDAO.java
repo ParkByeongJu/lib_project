@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.kopo.lib.ui.LibUI;
+import kr.ac.kopo.lib.ui.MypageUI;
 import kr.ac.kopo.lib.util.ConnectionFactory;
 import kr.ac.kopo.lib.vo.BookVO;
 import kr.ac.kopo.lib.vo.MemberVO;
@@ -21,7 +23,7 @@ public class LibDAO {
 	public void insertMember(MemberVO member) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into t_member(id, password, name, birth, email, phone) ");
-		sql.append(" values(?, ?, ?, ?, ?, ?); ");
+		sql.append(" values(?, ?, ?, ?, ?, ?) ");
 		
 		try (
 			Connection conn = new ConnectionFactory().getConnection();
@@ -203,27 +205,29 @@ public class LibDAO {
 	    return bookList;
 	}
 	
-	public void bookRent(String bookname) {
+	public void bookRent(String bookname) throws Exception {
 	    StringBuilder sql = new StringBuilder();
-	    sql.append("INSERT INTO T_Rental (rental_id, book_name, member_id, rental_date, return_date) VALUES (seq_t_rental, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), to_char(sysdate, 'yyyy-mm-dd')+14) ");
+	    sql.append("INSERT INTO T_Rental (rental_id, book_name, member_id, rental_date, return_date) ");
+	    sql.append("VALUES (seq_t_rental.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), to_char(sysdate + 14, 'yyyy-mm-dd'))");
 	    try (
 	        Connection conn = new ConnectionFactory().getConnection();
 	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-	    ){
+	    ) {
 	        pstmt.setString(1, bookname);
 	        pstmt.setString(2, LibUI.loginUser);
-	        pstmt.execute();
-	        System.out.println("------------------------------------------");
-	        System.out.println("\t   책 대여가 완료되었습니다");
-	        System.out.println("------------------------------------------");
-	        LibUI libui = new LibUI();
-	        libui.execute();
-	    } catch (Exception e) {
-	        e.printStackTrace();
+	        pstmt.executeUpdate();
+	        MypageUI mypage = new MypageUI();
+	        mypage.execute();
+	    } catch (SQLException e) {
+	        if (e.getErrorCode() == 2291) {
+	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	        } else if(e.getErrorCode() == 1 && e.getMessage().contains("SYS_C008377")) {
+	        	System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
+	        } else{
+	            e.printStackTrace();
+	        }
 	    }
 	}
-	
-	
 }
 
 
