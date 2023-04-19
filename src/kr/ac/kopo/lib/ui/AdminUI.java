@@ -33,10 +33,10 @@ public class AdminUI extends MemberMainUI {
 			ILibUI ui = null;
 			switch (type) {
 			case 1:
-				System.out.println("회원정보변경 변경");
+				ui = new RentalSearch();
 				break;
 			case 2:
-				ui = new BookSearch();
+				ui = new AddBook();
 				break;
 			case 3:
 				ui = new BookRent();

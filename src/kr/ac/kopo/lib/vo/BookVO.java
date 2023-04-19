@@ -6,7 +6,7 @@ public class BookVO {
 	
 	private String name;
 	private String writer;
-	private String  publisher;
+	private String publisher;
 	private Date date;
 	
 	public BookVO() {

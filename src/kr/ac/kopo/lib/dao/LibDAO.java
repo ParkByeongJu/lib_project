@@ -13,6 +13,7 @@ import kr.ac.kopo.lib.ui.MypageUI;
 import kr.ac.kopo.lib.util.ConnectionFactory;
 import kr.ac.kopo.lib.vo.BookVO;
 import kr.ac.kopo.lib.vo.MemberVO;
+import kr.ac.kopo.lib.vo.RentalBookVO;
 
 public class LibDAO {
 	
@@ -42,8 +43,8 @@ public class LibDAO {
 			e.printStackTrace();
 		}
 		
-		
 	}
+	
 	public int equalID(String Id) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(*) as cnt from t_member where id = ? ");
@@ -268,7 +269,79 @@ public class LibDAO {
 	        }
 	    }
 	}
-}
+	
+	public List<RentalBookVO> rentalBookList() {
+	    List<RentalBookVO> rentalBookList = new ArrayList<>();
+	    RentalBookVO book = null;
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("SELECT a.name as name ,b.MEMBER_ID as member ,b.RENTAL_DATE as rentalDate ,b.return_date as returnDate ");
+	    sql.append(" ,CASE WHEN b.rental_status = '대여 중' THEN '대여 중' ELSE '대여 가능' END AS rentalStatus ");
+	    sql.append(" FROM t_book a ");
+	    sql.append(" left JOIN t_rental b ");
+	    sql.append(" ON b.book_name = a.name ");
 
+	    try (
+	        Connection conn = new ConnectionFactory().getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	        ResultSet rs = pstmt.executeQuery();
+	    ) {
+	        while (rs.next()) {
+	            String name = rs.getString("name");
+	            String member = rs.getString("member");
+	            Date rentalDate = rs.getDate("rentalDate");  // 수정
+	            Date returnDate = rs.getDate("returnDate");  // 수정
+	            String rentalStatus = rs.getString("rentalStatus");
+
+	            book = new RentalBookVO(name, member, rentalDate, returnDate, rentalStatus);
+	            rentalBookList.add(book);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return rentalBookList;
+	}
+	
+	public int equalBookName(String name) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(*) as cnt from T_BOOK where name = ? ");
+		int cnt = 0;
+		try (
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		){
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cnt = rs.getInt("cnt");
+				if(cnt > 0) {
+					return 1;
+				}
+			}
+			
+		} catch (Exception e) {
+		}
+		return 0; 
+	}
+	
+	public void addBook(BookVO book) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("insert into t_book(name, writer, publisher, store) ");
+		sql.append(" values(?, ?, ?, to_char(sysdate, 'yyyy-mm-dd')) ");
+		
+		try (
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());	
+		){
+			pstmt.setString(1, book.getName());
+			pstmt.setString(2, book.getWriter());
+			pstmt.setString(3, book.getPublisher());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
 
 

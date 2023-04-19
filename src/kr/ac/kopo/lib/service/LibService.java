@@ -5,6 +5,7 @@ import java.util.List;
 import kr.ac.kopo.lib.dao.LibDAO;
 import kr.ac.kopo.lib.vo.BookVO;
 import kr.ac.kopo.lib.vo.MemberVO;
+import kr.ac.kopo.lib.vo.RentalBookVO;
 
 public class LibService {
 	
@@ -51,6 +52,18 @@ public class LibService {
 	
 	public void returnBook(String bookname) throws Exception {
 	    libDao.bookReturn(bookname);
+	}
+	
+	public List<RentalBookVO> rentalBookList(){
+		List<RentalBookVO> rentalBookList = libDao.rentalBookList();
+		
+		return rentalBookList;
+	}
+	
+	public void addBook(BookVO book) {
+
+		libDao.addBook(book);
+
 	}
 
 }

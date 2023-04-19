@@ -91,11 +91,8 @@ SELECT a.name, b.rental_status
     FROM t_book a 
     left JOIN t_rental b ON b.book_name = a.name;
     
-SELECT a.name, 
-       CASE 
-         WHEN b.rental_status = '대여 중' THEN '대여 중' 
-         ELSE '대여 가능' 
-       END AS rental_status
+SELECT a.name ,b.MEMBER_ID ,b.RENTAL_DATE ,b.return_date 
+        ,CASE WHEN b.rental_status = '대여 중' THEN '대여 중' ELSE '대여 가능' END AS rental_status
 FROM t_book a 
 left JOIN t_rental b 
 ON b.book_name = a.name;

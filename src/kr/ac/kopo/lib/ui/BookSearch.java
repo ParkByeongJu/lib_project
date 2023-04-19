@@ -11,7 +11,7 @@ public class BookSearch extends MypageUI {
 		System.out.printf("%16s", "1. 전체 도서 검색");
 		System.out.printf("%17s", "2. 제목으로 검색");
 		System.out.printf("%17s", "3. 저자로 검색");
-		System.out.printf("%17s", "3. 출판사로 검색");
+		System.out.printf("%17s", "4. 출판사로 검색");
 		System.out.printf("%17s\n", "0. 프로그램 종료");
 		System.out.println("-----------------------------------------------------------------------------------------------");
 		System.out.print("원하는 항목을 선택해주세요 : ");
