@@ -18,12 +18,12 @@ public class AddMemberUI extends BaseUI {
 	public void execute() throws Exception {
 		
 		LibDAO libdao = new LibDAO();
-		System.out.println("-------------------------");
-		System.out.println("\t회원가입\t");
-		System.out.println("-------------------------");
+		System.out.println("\n\n-----------------------------------------------------------------------------------------------");
+		System.out.println("|                                             로그인                                           |");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		String Id = scanStr("ID를 입력해주세요 : ");
 		while(libdao.equalID(Id) == 1) {
-			System.out.println("입력한 ID가 중복입니다. 다른 ID를 입력해주세요.");
+			System.out.println("※입력한 ID가 중복입니다. 다른 ID를 입력해주세요.※");
 			Id = scanStr("ID를 입력해주세요 : ");
 		}
 		String Password = scanStr("Password를 입력해주세요 : ");
@@ -31,7 +31,7 @@ public class AddMemberUI extends BaseUI {
 		while(!Password.equals(Password2)) {
 			Password = null;
 			Password2 = null;
-			System.out.println("\n*** Password를 잘못입력하셨습니다.***\n");
+			System.out.println("\n※ Password를 잘못입력하셨습니다. ※\n");
 			Password = scanStr("Password를 입력해주세요 : ");
 			Password2 = scanStr("Password를 다시 입력해주세요 : ");
 			

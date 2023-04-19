@@ -5,14 +5,15 @@ import java.util.Scanner;
 public class BookSearch extends MypageUI {
 
 	private int menu() {
-		System.out.println("\n--------------------------");
-		System.out.println("\t도서 검색");
-		System.out.println("--------------------------");
-		System.out.println("1. 전체 도서 검색");
-		System.out.println("2. 제목으로 검색");
-		System.out.println("3. 저자로 검색");
-		System.out.println("4. 출판사로 검색");
-		System.out.println("0. 이전 페이지로 돌아가기");
+		System.out.println("\n\n\n-----------------------------------------------------------------------------------------------");
+		System.out.println("|                                         도서 검색                                              |");
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.printf("%16s", "1. 전체 도서 검색");
+		System.out.printf("%17s", "2. 제목으로 검색");
+		System.out.printf("%17s", "3. 저자로 검색");
+		System.out.printf("%17s", "3. 출판사로 검색");
+		System.out.printf("%17s\n", "0. 프로그램 종료");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
 		int type = sc.nextInt();

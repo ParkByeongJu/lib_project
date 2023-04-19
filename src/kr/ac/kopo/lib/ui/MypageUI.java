@@ -5,14 +5,15 @@ import java.util.Scanner;
 public class MypageUI extends MemberMainUI {
 	
 	private int menu() {
-		System.out.println("--------------------------");
-		System.out.println("\t마이 페이지");
-		System.out.println("--------------------------");
-		System.out.println("1. 회원정보 변경");
-		System.out.println("2. 도서 검색");
-		System.out.println("3. 도서 대출");
-		System.out.println("4. 도서 반납");
-		System.out.println("0. 이전 페이지로 돌아가기");
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.printf("|                                        %s님의 마이 페이지                                    |\n", LibUI.loginUser);
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.printf("%16s", "1. 회원 정보 변경");
+		System.out.printf("%15s", "2. 도서 검색");
+		System.out.printf("%15s", "3. 도서 대여");
+		System.out.printf("%15s", "3. 도서 반납");
+		System.out.printf("%20s\n", "0. 로그아웃");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
 		int type = sc.nextInt();
@@ -37,7 +38,10 @@ public class MypageUI extends MemberMainUI {
 				ui = new BookRent();
 				break;
 			case 4:
-				System.out.println("도서 반납");
+				ui = new BookReturn();
+				break;
+			case 5:
+				ui = new BookReturn();
 				break;
 			case 0:
 				super.execute();

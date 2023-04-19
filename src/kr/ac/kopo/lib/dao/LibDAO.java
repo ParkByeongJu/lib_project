@@ -213,17 +213,57 @@ public class LibDAO {
 	        Connection conn = new ConnectionFactory().getConnection();
 	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 	    ) {
-	        pstmt.setString(1, bookname);
+	    	pstmt.setString(1, bookname);
 	        pstmt.setString(2, LibUI.loginUser);
 	        pstmt.executeUpdate();
-	        MypageUI mypage = new MypageUI();
-	        mypage.execute();
+	        
+	        String updateSql = "UPDATE T_RENTAL SET rental_status = '대여 중' WHERE book_name = ?";
+	        try (PreparedStatement updatePstmt = conn.prepareStatement(updateSql)) {
+	            updatePstmt.setString(1, bookname);
+	            updatePstmt.executeUpdate();
+	        }
+	        System.out.println("------------------------------------------");
+	        System.out.println("\t   책 대여가 완료되었습니다");
+	        System.out.println("------------------------------------------");
+	        new MypageUI().execute();
 	    } catch (SQLException e) {
 	        if (e.getErrorCode() == 2291) {
 	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
-	        } else if(e.getErrorCode() == 1 && e.getMessage().contains("SYS_C008377")) {
-	        	System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
-	        } else{
+	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
+	            System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
+	        } else {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+
+	public void bookReturn(String bookname) throws Exception {
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("DELETE FROM T_Rental WHERE book_name = ? AND member_id = ?");
+
+	    try (
+	        Connection conn = new ConnectionFactory().getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	    ) {
+	        pstmt.setString(1, bookname);
+	        pstmt.setString(2, LibUI.loginUser);
+	        int rowCount = pstmt.executeUpdate();
+	        if (rowCount > 0) {
+	            System.out.println("------------------------------------------");
+	            System.out.println("\t   책 반납이 완료되었습니다");
+	            System.out.println("------------------------------------------");
+	        } else {
+	            System.out.println("해당 책은 대여 중이 아닙니다.");
+	            return; // 책이 대여 중이 아닌 경우 메서드를 종료
+	        }
+	        new MypageUI().execute();
+	    } catch (SQLException e) {
+	        if (e.getErrorCode() == 2291) {
+	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
+	            System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
+	        } else {
 	            e.printStackTrace();
 	        }
 	    }

@@ -69,6 +69,7 @@ CREATE TABLE T_RENTAL(
     ,return_date date,
     CONSTRAINT FK_BOOK_NAME FOREIGN KEY(BOOK_NAME) REFERENCES T_BOOK(NAME)
     );
+ALTER TABLE T_RENTAL ADD rental_status VARCHAR2(20) DEFAULT '대여 가능';
     
 select * from T_rental;
 
@@ -77,5 +78,30 @@ CREATE SEQUENCE seq_t_RENTAL START WITH 1 INCREMENT BY 1 NOCACHE;
 ALTER TABLE T_RENTAL ADD CONSTRAINT UC_BOOK_MEMBER UNIQUE (BOOK_NAME);
 
 drop SEQUENCE seq_t_RENTAL;
+drop table t_rental;
 
 ALTER TABLE t_rental ADD COLUMN return_date date; 
+
+
+select a.name b.rental_status
+    from t_book a 
+    join t_rental b on b.book_name = a.name;
+    
+SELECT a.name, b.rental_status
+    FROM t_book a 
+    left JOIN t_rental b ON b.book_name = a.name;
+    
+SELECT a.name, 
+       CASE 
+         WHEN b.rental_status = '대여 중' THEN '대여 중' 
+         ELSE '대여 가능' 
+       END AS rental_status
+FROM t_book a 
+left JOIN t_rental b 
+ON b.book_name = a.name;
+    
+    
+    
+    
+    
+    

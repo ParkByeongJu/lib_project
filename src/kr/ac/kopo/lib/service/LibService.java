@@ -48,5 +48,9 @@ public class LibService {
 	public void rentalBook(String bookname) throws Exception {
 	    libDao.bookRent(bookname);
 	}
+	
+	public void returnBook(String bookname) throws Exception {
+	    libDao.bookReturn(bookname);
+	}
 
 }

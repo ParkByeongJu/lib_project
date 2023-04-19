@@ -18,9 +18,6 @@ public class BookRent extends MypageUI {
 		String rentbook = scanStr("대여할 책 이름을 입력해주세요 : ");
 		libService.rentalBook(rentbook);
 		
-		System.out.println("------------------------------------------");
-		System.out.println("\t   책 대여가 완료되었습니다");
-		System.out.println("------------------------------------------");
 		LibUI libui = new LibUI();
 		super.execute();
 	}

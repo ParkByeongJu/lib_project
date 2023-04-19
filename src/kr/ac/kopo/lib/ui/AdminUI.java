@@ -2,17 +2,21 @@ package kr.ac.kopo.lib.ui;
 
 import java.util.Scanner;
 
-public class MemberMainUI extends LibUI {
+public class AdminUI extends MemberMainUI {
+
 	
-	
+	public AdminUI() {
+		
+	}
 	
 	private int menu() {
-		System.out.println("\n\n-----------------------------------------------------------------------------------------------");
-		System.out.println("|                                            로그인 창                                          |");
 		System.out.println("-----------------------------------------------------------------------------------------------");
-		System.out.printf("%15s", "1. 로그인");
-		System.out.printf("%20s", "2. 회원가입");
-		System.out.printf("%24s\n", "0. 프로그램 종료");
+		System.out.printf("|                                        관리자 페이지                                    |\n", LibUI.loginUser);
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.printf("%16s", "1. 대여 현황 검색");
+		System.out.printf("%15s", "2. 도서 입고");
+		System.out.printf("%15s", "3. 도서 삭제");
+		System.out.printf("%20s\n", "0. 로그아웃");
 		System.out.println("-----------------------------------------------------------------------------------------------");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
@@ -29,13 +33,22 @@ public class MemberMainUI extends LibUI {
 			ILibUI ui = null;
 			switch (type) {
 			case 1:
-				ui = new LoginUI();
+				System.out.println("회원정보변경 변경");
 				break;
 			case 2:
-				ui = new AddMemberUI();
+				ui = new BookSearch();
+				break;
+			case 3:
+				ui = new BookRent();
+				break;
+			case 4:
+				ui = new BookReturn();
+				break;
+			case 5:
+				ui = new BookReturn();
 				break;
 			case 0:
-				ui = new ExitUI();
+				super.execute();
 				break;
 			}
 

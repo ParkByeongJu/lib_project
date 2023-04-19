@@ -4,9 +4,9 @@ public class ExitUI extends BaseUI {
 
 	@Override
 	public void execute() throws Exception {
-		System.out.println("\n-------------------------------------------");
-		System.out.println("\t 게시판 프로그램을 종료합니다.");
-		System.out.println("-------------------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.println("|                                     도서 프로그램을 종료합니다.                                   |");
+		System.out.println("-----------------------------------------------------------------------------------------------");
 		System.exit(0);
 
 	}
