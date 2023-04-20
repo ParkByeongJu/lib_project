@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.ac.kopo.lib.ui.AdminUI;
 import kr.ac.kopo.lib.ui.LibUI;
 import kr.ac.kopo.lib.ui.MypageUI;
 import kr.ac.kopo.lib.util.ConnectionFactory;
@@ -342,6 +343,40 @@ public class LibDAO {
 		}
 		
 	}
+	
+	public void delBook(String bookname) throws Exception {
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("DELETE FROM t_book  ");
+	    sql.append(" WHERE name = ? ");
+	    sql.append(" AND name not IN (SELECT book_name FROM t_rental) ");
+
+	    try (
+	        Connection conn = new ConnectionFactory().getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	    ) {
+	        pstmt.setString(1, bookname);
+	        int rowCount = pstmt.executeUpdate();
+	        if (rowCount > 0) {
+	            System.out.println("------------------------------------------");
+	            System.out.println("\t   도서삭제가 완료되었습니다");
+	            System.out.println("------------------------------------------");
+	        } else {
+	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            return; 
+	        }
+	        new AdminUI().execute();
+	    } catch (SQLException e) {
+	        if (e.getErrorCode() == 2291) {
+	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
+	            System.out.println("해당 책은 대여 중이므로 삭제가 불가합니다.");
+	        } else {
+	            e.printStackTrace();
+	        }
+
+	    }
+	    }
+	
 }
 
 

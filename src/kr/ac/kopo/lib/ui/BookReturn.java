@@ -12,9 +12,9 @@ private LibService libService;
 
 	@Override
 	public void execute() throws Exception {
-		System.out.println("-----------------------");
-		System.out.println("\t책 반납\t");
-		System.out.println("-----------------------");
+		System.out.println("\n\n\n---------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|                                                          책 반납                                                          |");
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------");
 		String returnBook = scanStr("반납할 책 이름을 입력해주세요 : ");
 		libService.returnBook(returnBook);
 		

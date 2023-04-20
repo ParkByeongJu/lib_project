@@ -65,5 +65,8 @@ public class LibService {
 		libDao.addBook(book);
 
 	}
+	public void delBook(String bookname) throws Exception {
+	    libDao.delBook(bookname);
+	}
 
 }

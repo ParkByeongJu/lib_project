@@ -35,6 +35,7 @@ CREATE TABLE t_member (
 drop table t_member;
 
 select * from t_member; 
+delete from t_member where id = 'JMGOOD';
 
 select count(*) from t_member where id = 'admin' and password = 123;
 
@@ -97,8 +98,56 @@ FROM t_book a
 left JOIN t_rental b 
 ON b.book_name = a.name;
     
-    
-    
-    
-    
-    
+
+DELETE T_BOOK FROM T_BOOK INNER JOIN t_rental ON t_book.name = t_rental.book_name  AND rental_status = '대여 가능' WHERE a.name = '자바의 정석';
+
+delete t_book from t_book where (select book_name, rental_statue from t_rental where t_book.name = t_rental.book_name)  rental_status = '대여 가능' and where name = '자바의 정석';
+
+
+delete m1 from t_book m1
+            inner join t_rental m2 on m2.book_name = m1.name 
+where m1.name = '자바의 정석';
+
+
+and m2.rental_status = '대여가능';
+
+delete from t_book
+where name = '자바의 정석';
+
+DELETE FROM t_book
+WHERE name = '이것이 자바다'
+AND EXISTS (
+    SELECT 1
+    FROM t_rental
+    WHERE book_name = t_book.name
+    AND rental_status = '대여 가능'
+);
+
+select * from t_book;
+
+select * from t_rental;
+
+DELETE FROM t_book 
+WHERE name = '자바의 정석' 
+AND name not IN (SELECT book_name FROM t_rental);
+
+SELECT book_name FROM t_rental WHERE rental_status = '대여 가능';
+select * from t_rental;
+
+select * from t_book;
+
+commit;
+
+INSERT INTO t_book(name, writer, publisher, store)
+VALUES('한권으로 끝내는 C언어', '박병주', '성남캠', TO_DATE(sysdate, 'yyyy-mm-dd'));
+commit;
+
+한권으로 끝내는 C언어 박병주 성남캠
+컴퓨터비전과 머신러닝 김형오 광문각
+혼자 공부하는 파이썬 박병주 성남캠
+정보처리기사 실기정복 김정두 성남캠
+정보처리기사 필기정복 김정두 성남캠
+빅데이터분석기사 필기 고재만 성남캠
+빅데이터분석기사 실기 고재만 성남캠
+정보보안기사 실기정복 이기범 성남캠
+정보보안기사 필기정복 이기범 성남캠

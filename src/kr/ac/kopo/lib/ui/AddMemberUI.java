@@ -18,9 +18,9 @@ public class AddMemberUI extends BaseUI {
 	public void execute() throws Exception {
 		
 		LibDAO libdao = new LibDAO();
-		System.out.println("\n\n-----------------------------------------------------------------------------------------------");
-		System.out.println("|                                             로그인                                           |");
-		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|\t\t\t\t\t\t\t   회원가입\t\t\t\t\t\t\t|");
+		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
 		String Id = scanStr("ID를 입력해주세요 : ");
 		while(libdao.equalID(Id) == 1) {
 			System.out.println("※입력한 ID가 중복입니다. 다른 ID를 입력해주세요.※");

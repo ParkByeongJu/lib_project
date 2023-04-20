@@ -12,9 +12,9 @@ public class BookRent extends MypageUI {
 
 	@Override
 	public void execute() throws Exception {
-		System.out.println("-----------------------");
-		System.out.println("\t책 대여\t");
-		System.out.println("-----------------------");
+		System.out.println("\n\n\n---------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|                                                            책 대여                                                        |");
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------");
 		String rentbook = scanStr("대여할 책 이름을 입력해주세요 : ");
 		libService.rentalBook(rentbook);
 		

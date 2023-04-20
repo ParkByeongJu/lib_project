@@ -10,14 +10,14 @@ public class AdminUI extends MemberMainUI {
 	}
 	
 	private int menu() {
-		System.out.println("-----------------------------------------------------------------------------------------------");
-		System.out.printf("|                                        관리자 페이지                                    |\n", LibUI.loginUser);
-		System.out.println("-----------------------------------------------------------------------------------------------");
-		System.out.printf("%16s", "1. 대여 현황 검색");
-		System.out.printf("%15s", "2. 도서 입고");
-		System.out.printf("%15s", "3. 도서 삭제");
-		System.out.printf("%20s\n", "0. 로그아웃");
-		System.out.println("-----------------------------------------------------------------------------------------------");
+		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|\t\t\t\t\t\t   \t관리자 페이지\t\t\t\t\t\t\t|");
+		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+		System.out.print("\t1. 대여 현황 검색\t");
+		System.out.print("\t\t2. 도서 입고\t");
+		System.out.print("\t\t3. 도서 삭제\t");
+		System.out.print("\t\t0. 로그아웃\t\n");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		System.out.print("원하는 항목을 선택해주세요 : ");
 		Scanner sc = new Scanner(System.in);
 		int type = sc.nextInt();
@@ -39,7 +39,7 @@ public class AdminUI extends MemberMainUI {
 				ui = new AddBook();
 				break;
 			case 3:
-				ui = new BookRent();
+				ui = new DelBook();
 				break;
 			case 4:
 				ui = new BookReturn();
