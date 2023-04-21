@@ -46,9 +46,13 @@ public class LibService {
 		return bookList;
 	}
 	
-	public void rentalBook(String bookname) throws Exception {
-	    libDao.bookRent(bookname);
+	public List<RentalBookVO> rentalBook(String bookname) throws Exception {
+	    List<RentalBookVO> rentalbook = libDao.bookRent(bookname);
+	    return rentalbook;
 	}
+//	public void rentalBook(String bookname) throws Exception {
+//		libDao.bookRent(bookname);
+//	}
 	
 	public void returnBook(String bookname) throws Exception {
 	    libDao.bookReturn(bookname);

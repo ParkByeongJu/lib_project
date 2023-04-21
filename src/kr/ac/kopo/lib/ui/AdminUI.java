@@ -41,12 +41,6 @@ public class AdminUI extends MemberMainUI {
 			case 3:
 				ui = new DelBook();
 				break;
-			case 4:
-				ui = new BookReturn();
-				break;
-			case 5:
-				ui = new BookReturn();
-				break;
 			case 0:
 				super.execute();
 				break;

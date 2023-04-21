@@ -207,7 +207,10 @@ public class LibDAO {
 	    return bookList;
 	}
 	
-	public void bookRent(String bookname) throws Exception {
+	public List<RentalBookVO> bookRent(String bookname) throws Exception {
+		List<RentalBookVO> rentalBook = new ArrayList<>();
+		RentalBookVO rentBook = null;
+		
 	    StringBuilder sql = new StringBuilder();
 	    sql.append("INSERT INTO T_Rental (rental_id, book_name, member_id, rental_date, return_date) ");
 	    sql.append("VALUES (seq_t_rental.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), to_char(sysdate + 14, 'yyyy-mm-dd'))");
@@ -222,21 +225,43 @@ public class LibDAO {
 	        String updateSql = "UPDATE T_RENTAL SET rental_status = '대여 중' WHERE book_name = ?";
 	        try (PreparedStatement updatePstmt = conn.prepareStatement(updateSql)) {
 	            updatePstmt.setString(1, bookname);
-	            updatePstmt.executeUpdate();
-	        }
-	        System.out.println("------------------------------------------");
-	        System.out.println("\t   책 대여가 완료되었습니다");
-	        System.out.println("------------------------------------------");
-	        new MypageUI().execute();
+	            int rowsUpdated = updatePstmt.executeUpdate();
+	            if (rowsUpdated == 0) {
+	                System.out.println("책 대여에 실패하였습니다. 다시 시도해주세요.");
+	                new MypageUI().execute();
+	            } else {
+	                String selectSql = "SELECT book_name, member_id, rental_date, return_date, rental_status FROM T_RENTAL WHERE book_name = ?";
+	                try (PreparedStatement selectPstmt = conn.prepareStatement(selectSql)) {
+	                    selectPstmt.setString(1, bookname);
+	                    ResultSet rs = selectPstmt.executeQuery();
+	                    while (rs.next()) {
+	                        String book_name = rs.getString("book_name");
+	                        String member = rs.getString("member_id");
+	                        Date rentalDate = rs.getDate("rental_date");
+	                        Date returnDate = rs.getDate("return_date");
+	                        String rentalStatus = rs.getString("rental_status");
+	                        
+	                        rentBook = new RentalBookVO(book_name, member, rentalDate, returnDate, rentalStatus);
+	                        
+	                        rentalBook.add(rentBook);
+	                    }
+	                   }
+	                }
+	        }	        
+	        
 	    } catch (SQLException e) {
 	        if (e.getErrorCode() == 2291) {
 	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
-	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
+	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402") || e.getMessage().contains("SYS_C008405"))) {
 	            System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
 	        } else {
 	            e.printStackTrace();
 	        }
+	        MypageUI mypage = new MypageUI();
+	        mypage.execute();
 	    }
+		
+	    return rentalBook;
 	}
 
 
@@ -252,12 +277,11 @@ public class LibDAO {
 	        pstmt.setString(2, LibUI.loginUser);
 	        int rowCount = pstmt.executeUpdate();
 	        if (rowCount > 0) {
-	            System.out.println("------------------------------------------");
-	            System.out.println("\t   책 반납이 완료되었습니다");
-	            System.out.println("------------------------------------------");
+	        	System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+				System.out.println("\t\t\t\t\t\t       도서 반납이 완료되었습니다.\t\t\t\t\t\t\t");
+				System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
 	        } else {
 	            System.out.println("해당 책은 대여 중이 아닙니다.");
-	            return; // 책이 대여 중이 아닌 경우 메서드를 종료
 	        }
 	        new MypageUI().execute();
 	    } catch (SQLException e) {
@@ -289,8 +313,8 @@ public class LibDAO {
 	        while (rs.next()) {
 	            String name = rs.getString("name");
 	            String member = rs.getString("member");
-	            Date rentalDate = rs.getDate("rentalDate");  // 수정
-	            Date returnDate = rs.getDate("returnDate");  // 수정
+	            Date rentalDate = rs.getDate("rentalDate");  
+	            Date returnDate = rs.getDate("returnDate");  
 	            String rentalStatus = rs.getString("rentalStatus");
 
 	            book = new RentalBookVO(name, member, rentalDate, returnDate, rentalStatus);
@@ -357,9 +381,9 @@ public class LibDAO {
 	        pstmt.setString(1, bookname);
 	        int rowCount = pstmt.executeUpdate();
 	        if (rowCount > 0) {
-	            System.out.println("------------------------------------------");
-	            System.out.println("\t   도서삭제가 완료되었습니다");
-	            System.out.println("------------------------------------------");
+	        	System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+				System.out.println("\t\t\t\t\t\t    도서 삭제가 완료되었습니다.   \t\t\t\t\t\t");
+				System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
 	        } else {
 	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
 	            return; 

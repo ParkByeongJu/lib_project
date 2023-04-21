@@ -19,21 +19,17 @@ private LibService libService;
 		
 		String name = scanStr("\n*** 검색할 책 제목을 입력해주세요 *** : ");
 		List<BookVO> bookList = libService.searchByName(name);
-
-		System.out.println("\n\n\n---------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|                                                      제목 검색 출력                                                        |");
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("%12s", "제목");
-		System.out.printf("%29s", "저자");
-		System.out.printf("%34s", "출판사");
-		System.out.printf("%30s\n", "입고 날짜");
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\t\t\t\t\t\t       제목 검색 출력   \t\t\t\t\t\t\t");
+		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+		System.out.print("\n\t\t제목\t\t\t저자\t\t\t\t출판사\t\t\t\t입고 날짜\n");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		LibDAO libDao = new LibDAO();
 		for (BookVO book : bookList) {
-			System.out.printf("%-37s", book.getName());
-			System.out.printf("%-32s", book.getWriter());
-			System.out.printf("%-22s", book.getPublisher());
-			System.out.printf("%16s\n", book.getDate());
+			System.out.printf("\t%-28s", book.getName());
+			System.out.printf("%-31s", book.getWriter());
+			System.out.printf("%-30s", book.getPublisher());
+			System.out.printf("%10s\n", book.getDate());
 
 		}
 		System.out.println("---------------------------------------------------------------------------------------------------------------------------\n\n\n");

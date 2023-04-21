@@ -16,9 +16,9 @@ public class AddBook extends AdminUI {
 	@Override
 	public void execute() throws Exception {
 		LibDAO libdao = new LibDAO();
-		System.out.println("\n\n\n---------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|                                                              도서 입고                                                     |");
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("|\t\t\t\t\t\t         도서 입고\t\t\t\t\t\t\t\t|");
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
 		String name = scanStr("입고할 책이름을 입력해주세요 : ");
 		while(libdao.equalBookName(name) == 1) {
 			System.out.println("※ 입력한 책이 존재합니다. 다른 책 입력해주세요. ※");
@@ -33,7 +33,7 @@ public class AddBook extends AdminUI {
 		book.setPublisher(publisher);
 		
 		libservice.addBook(book);
-		System.out.println("\n*** 회원가입이 완료되었습니다. ***\n");
+		System.out.println("\n*** 도서 입고가 완료되었습니다. ***\n");
 	}
 
 }
