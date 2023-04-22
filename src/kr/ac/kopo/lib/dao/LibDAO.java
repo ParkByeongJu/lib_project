@@ -401,6 +401,47 @@ public class LibDAO {
 	    }
 	    }
 	
+	public int equalPassword(String password) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(*) as cnt from t_member where password = ? ");
+		int cnt = 0;
+		try (
+			Connection conn = new ConnectionFactory().getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		){
+			pstmt.setString(1, password);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cnt = rs.getInt("cnt");
+				if(cnt > 0) {
+					return 1;
+				}
+			}
+			
+		} catch (Exception e) {
+		}
+		return 0;
+	}
+	
+	public void changePassword(String password) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE T_MEMBER SET password = ? where id = ?");
+		try (
+				Connection conn = new ConnectionFactory().getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+				){
+			pstmt.setString(1, password);
+			pstmt.setString(2, LibUI.loginUser);
+			pstmt.executeUpdate();
+			System.out.println("Password변경이 완료 되었습니다.");
+		}catch(Exception e) {
+			
+		}
+	
+		
+	}
+
+	
 }
 
 

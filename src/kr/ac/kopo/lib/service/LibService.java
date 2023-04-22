@@ -50,9 +50,6 @@ public class LibService {
 	    List<RentalBookVO> rentalbook = libDao.bookRent(bookname);
 	    return rentalbook;
 	}
-//	public void rentalBook(String bookname) throws Exception {
-//		libDao.bookRent(bookname);
-//	}
 	
 	public void returnBook(String bookname) throws Exception {
 	    libDao.bookReturn(bookname);
@@ -71,6 +68,10 @@ public class LibService {
 	}
 	public void delBook(String bookname) throws Exception {
 	    libDao.delBook(bookname);
+	}
+	
+	public void changeMemberInformation(String password) throws Exception{
+		libDao.changePassword(password);
 	}
 
 }
