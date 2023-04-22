@@ -63,4 +63,9 @@ SELECT * FROM T_MEMBER;
 SELECT * FROM T_BOOK;
 SELECT * FROM T_RENTAL;
 
+delete from t_rental where book_name = '혼자 공부하는 파이썬';
+
+delete from t_member
+where id = 'JM' and password = '1234' and id not in (select member_id from t_rental);
+
 

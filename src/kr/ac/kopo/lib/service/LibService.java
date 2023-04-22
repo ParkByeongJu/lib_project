@@ -74,4 +74,8 @@ public class LibService {
 		libDao.changePassword(password);
 	}
 
+	public void delMember(String password) {
+		libDao.delMember(password);
+	}
+
 }

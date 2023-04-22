@@ -385,21 +385,24 @@ public class LibDAO {
 				System.out.println("\t\t\t\t\t\t    도서 삭제가 완료되었습니다.   \t\t\t\t\t\t");
 				System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
 	        } else {
-	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            String checkSql = "SELECT COUNT(*) FROM t_book WHERE name = ?";
+	            PreparedStatement checkPstmt = conn.prepareStatement(checkSql);
+	            checkPstmt.setString(1, bookname);
+	            ResultSet rs = checkPstmt.executeQuery();
+	            rs.next();
+	            int count = rs.getInt(1);
+	            if (count == 0) {
+	                System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            } else {
+	                System.out.println("해당 책은 대여 중이므로 삭제가 불가합니다.");
+	            }
 	            return; 
 	        }
 	        new AdminUI().execute();
 	    } catch (SQLException e) {
-	        if (e.getErrorCode() == 2291) {
-	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
-	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
-	            System.out.println("해당 책은 대여 중이므로 삭제가 불가합니다.");
-	        } else {
-	            e.printStackTrace();
-	        }
-
+	        e.printStackTrace();
 	    }
-	    }
+	}
 	
 	public int equalPassword(String password) {
 		StringBuilder sql = new StringBuilder();
@@ -441,6 +444,32 @@ public class LibDAO {
 		
 	}
 
+	public void delMember(String password) {
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("DELETE FROM t_member  ");
+	    sql.append(" WHERE id = ? ");
+	    sql.append(" AND password = ?");
+	    sql.append(" AND id not IN (SELECT member_id FROM t_rental) ");
+	    try(
+	        Connection conn = new ConnectionFactory().getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	    ){
+	        pstmt.setString(1, LibUI.loginUser);
+	        pstmt.setString(2, password);
+	        int rowCount = pstmt.executeUpdate();
+	        if (rowCount > 0) {
+	            System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
+	            System.out.println("\t\t\t\t\t\t    회원탈퇴가 완료되었습니다.   \t\t\t\t\t\t");
+	            System.out.println("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+	        } else {
+	            System.out.println("대여 중인 도서가 있습니다. 반납 후 탈퇴를 진행해주세요");
+	            return; 
+	        }
+	        new LibUI().execute();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 	
 }
 
