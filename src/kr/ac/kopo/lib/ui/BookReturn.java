@@ -12,10 +12,10 @@ private LibService libService;
 
 	@Override
 	public void execute() throws Exception {
-		System.out.println("\n\n\n---------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|                                                          책 반납                                                          |");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		String returnBook = scanStr("반납할 책 이름을 입력해주세요 : ");
+		System.out.println("\n==============================================");
+		System.out.println("\t\t도서 반납\t\t");
+		System.out.println("==============================================");
+		String returnBook = scanStr("\n● 반납할 책 이름을 입력해주세요 => ");
 		libService.returnBook(returnBook);
 		
 		LibUI libui = new LibUI();

@@ -7,12 +7,12 @@ public class LibUI extends BaseUI {
 	public static String loginUser = "";
 
 	private int menu() {
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|\t\t\t\t\t\t\t도서 관리 프로그램 \t\t\t\t\t\t\t|");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		System.out.print("\n\t\t   1. 로그인\t\t\t\t\t\t\t\t0. 프로그램 종료\n\n");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-		System.out.print("원하는 항목을 선택해주세요 : ");
+		System.out.println("==============================================");
+		System.out.println("\t\t도서 관리 프로그램 \t\t");
+		System.out.println("==============================================");
+		System.out.print("\n1. 로그인\n\n0. 프로그램 종료\n\n");
+		System.out.println("==============================================");
+		System.out.print("\n● 원하는 항목을 선택해주세요 => ");
 		Scanner sc = new Scanner(System.in);
 		int type = sc.nextInt();
 		sc.nextLine();

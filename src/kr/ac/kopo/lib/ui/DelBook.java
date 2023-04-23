@@ -14,10 +14,10 @@ public class DelBook extends AdminUI {
 	@Override
 	public void execute() throws Exception {
 		LibDAO libdao = new LibDAO();
-		System.out.println("\n\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|                                                         도서 삭제                                                       |");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-		String name = scanStr("삭제할 책이름을 입력해주세요 : ");
+		System.out.println("\n==============================================");
+		System.out.printf("\t\t도서 삭제\t\t\n");
+		System.out.println("==============================================");
+		String name = scanStr("\n● 삭제할 책이름을 입력해주세요 : ");
 		
 		libservice.delBook(name);
 	}

@@ -16,21 +16,22 @@ public class BookRent extends MypageUI {
 
 	@Override
 	public void execute() throws Exception {
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("\t\t\t\t\t\t           책대여\t\t\t\t\t\t\t\n");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		String rentBook = scanStr("대여할 책 이름을 입력해주세요 : ");
+		System.out.println("\n==============================================");
+		System.out.println("\t\t도서 대여\t\t");
+		System.out.println("==============================================");
+		String rentBook = scanStr("\n● 대여할 도서 이름을 입력해주세요 => ");
 		List<RentalBookVO>rentalbook = libService.rentalBook(rentBook);
 		
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|\t\t\t\t\t\t       도서 대여가 완료되었습니다.\t\t\t\t\t\t\t|");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("\t      제목\t\t  대여 날짜\t\t   반납 날짜\t\t");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+		System.out.println("\n==============================================");
+		System.out.println("\t\t도서 대여가 완료되었습니다.\t\t");
+		System.out.println("==============================================");
+		System.out.print("\t제목\t     대여 날짜      반납 날짜\n");
+		System.out.println("==============================================");
 		for(RentalBookVO rentalBook : rentalbook) {
-			System.out.printf("%s\t%s\t%s", rentalBook.getName(), rentalBook.getRentalDate(), rentalBook.getReturnDate());
+			System.out.printf("  %s   %s\t%s", rentalBook.getName(), rentalBook.getRentalDate(), rentalBook.getReturnDate());
 		}
-		
+		System.out.println();
+		System.out.println("==============================================");
 	
 	}
 }

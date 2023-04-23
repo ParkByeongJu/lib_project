@@ -16,16 +16,16 @@ public class AddBook extends AdminUI {
 	@Override
 	public void execute() throws Exception {
 		LibDAO libdao = new LibDAO();
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|\t\t\t\t\t\t         도서 입고\t\t\t\t\t\t\t\t|");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-		String name = scanStr("입고할 책이름을 입력해주세요 : ");
+		System.out.println("\n==============================================");
+		System.out.printf("\t\t도서 입고\t\t\n");
+		System.out.println("==============================================");
+		String name = scanStr("\n● 입고할 책이름을 입력해주세요 : ");
 		while(libdao.equalBookName(name) == 1) {
-			System.out.println("※ 입력한 책이 존재합니다. 다른 책 입력해주세요. ※");
-			name = scanStr("책을 입력해주세요 : ");
+			System.out.println("\n※ 입력한 책이 존재합니다. 다른 책 입력해주세요. ※");
+			name = scanStr("\n● 제목을 입력해주세요 : ");
 		}
-		String writer = scanStr("저자를 입력해주세요 : ");
-		String publisher = scanStr("출판사를 입력해주세요 : ");
+		String writer = scanStr("\n● 저자를 입력해주세요 : ");
+		String publisher = scanStr("\n● 출판사를 입력해주세요 : ");
 		
 		BookVO book = new BookVO();
 		book.setName(name);
@@ -33,7 +33,9 @@ public class AddBook extends AdminUI {
 		book.setPublisher(publisher);
 		
 		libservice.addBook(book);
-		System.out.println("\n*** 도서 입고가 완료되었습니다. ***\n");
+		System.out.println("\n==============================================");
+		System.out.println("\t*** 도서 입고가 완료되었습니다. ***\n");
+		System.out.println("==============================================");
 	}
 
 }

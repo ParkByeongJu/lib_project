@@ -13,11 +13,11 @@ public class LoginUI extends MemberMainUI {
 		
 		
 		LibDAO libdao = new LibDAO();
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|\t\t\t\t\t\t\t   로그인 \t\t\t\t\t\t\t|");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		String Id = scanStr("ID를 입력해주세요 : ");
-		String Password = scanStr("Password를 입력해주세요 : ");
+		System.out.println("\n==============================================");
+		System.out.println("\t\t\t로그인\t\t");
+		System.out.println("==============================================");
+		String Id = scanStr("\n● ID를 입력해주세요 : ");
+		String Password = scanStr("\n● Password를 입력해주세요 : ");
 		while(libdao.LoginMember(Id, Password) == 0) {
 			System.out.println("\n");
 			System.out.println("***********************");
@@ -25,14 +25,14 @@ public class LoginUI extends MemberMainUI {
 			System.out.println("  확인 후 다시 입력해주세요.");
 			System.out.println("***********************");
 			System.out.println("\n");
-			Id = scanStr("ID를 입력해주세요 : ");
-			Password = scanStr("Password를 입력해주세요 : ");
+			Id = scanStr("\n● ID를 입력해주세요 : ");
+			Password = scanStr("\n● Password를 입력해주세요 : ");
 		}
 		
 		LibUI.loginUser = Id;
-		System.out.println("\n\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("                                                   *** %s님 환영합니다. ***                                               \n", Id);
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n\n==============================================");
+		System.out.printf("\t   *** %s님 환영합니다. ***\t\t\n", Id);
+		System.out.println("==============================================");
 		ILibUI ui = null;
 		if(Id.equals("admin")) {
 		    AdminUI adminUI = new AdminUI();

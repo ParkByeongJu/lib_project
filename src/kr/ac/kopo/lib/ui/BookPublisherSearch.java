@@ -16,26 +16,20 @@ public class BookPublisherSearch extends BookSearch {
 	@Override
 	public void execute() throws Exception {
 		
-		String publisher = scanStr("\n*** 검색할 출판사를 입력해주세요 *** : ");
+		String publisher = scanStr("\n*** 검색할 출판사를 입력해주세요 *** => ");
 		List<BookVO> bookList = libService.searchByPublisher(publisher);
-		
-		
-		
-
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("\t\t\t\t\t\t       출판사 검색 출력   \t\t\t\t\t\t\t");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		System.out.print("\n\t\t제목\t\t\t저자\t\t\t\t출판사\t\t\t\t입고 날짜\n");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n==============================================");
+		System.out.println("\t\t출판사 검색 출력\t\t");
+		System.out.println("==============================================");
+		System.out.print("\t제목\t     저자    출판사\t    입고 날짜\n");
+		System.out.println("==============================================");
 		LibDAO libDao = new LibDAO();
 		for (BookVO book : bookList) {
-			System.out.printf("\t%-28s", book.getName());
-			System.out.printf("%-31s", book.getWriter());
-			System.out.printf("%-30s", book.getPublisher());
+			System.out.printf("  %-15s", book.getName());
+			System.out.printf("%-6s", book.getWriter());
+			System.out.printf("%-6s", book.getPublisher());
 			System.out.printf("%10s\n", book.getDate());
-
 		}
-		System.out.println("---------------------------------------------------------------------------------------------------------------------------\n\n\n");
-
+		System.out.println("==============================================");
 	}
 }

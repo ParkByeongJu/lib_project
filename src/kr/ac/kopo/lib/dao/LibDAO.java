@@ -227,7 +227,9 @@ public class LibDAO {
 	            updatePstmt.setString(1, bookname);
 	            int rowsUpdated = updatePstmt.executeUpdate();
 	            if (rowsUpdated == 0) {
-	                System.out.println("책 대여에 실패하였습니다. 다시 시도해주세요.");
+	            	System.out.println("\n==============================================");
+	                System.out.println("\t   책 대여에 실패하였습니다. 다시 시도해주세요.");
+	                System.out.println("==============================================\n");
 	                new MypageUI().execute();
 	            } else {
 	                String selectSql = "SELECT book_name, member_id, rental_date, return_date, rental_status FROM T_RENTAL WHERE book_name = ?";
@@ -251,9 +253,13 @@ public class LibDAO {
 	        
 	    } catch (SQLException e) {
 	        if (e.getErrorCode() == 2291) {
-	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	        	System.out.println("\n==============================================");
+	            System.out.println("\t   존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            System.out.println("==============================================\n");
 	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402") || e.getMessage().contains("SYS_C008405"))) {
-	            System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
+	        	System.out.println("\n==============================================");
+	            System.out.println("\t   대여 중 입니다. 다른 책을 선택해주세요.");
+	            System.out.println("==============================================\n");
 	        } else {
 	            e.printStackTrace();
 	        }
@@ -277,18 +283,24 @@ public class LibDAO {
 	        pstmt.setString(2, LibUI.loginUser);
 	        int rowCount = pstmt.executeUpdate();
 	        if (rowCount > 0) {
-	        	System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-				System.out.println("\t\t\t\t\t\t       도서 반납이 완료되었습니다.\t\t\t\t\t\t\t");
-				System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+	        	System.out.println("\n==============================================");
+	    		System.out.println("\t    도서 반납이 완료되었습니다.\t\t");
+	    		System.out.println("==============================================\n");
 	        } else {
-	            System.out.println("해당 책은 대여 중이 아닙니다.");
+	        	System.out.println("\n==============================================");
+	            System.out.println("\t   해당 책은 대여 중이 아닙니다.");
+	            System.out.println("==============================================\n");
 	        }
 	        new MypageUI().execute();
 	    } catch (SQLException e) {
 	        if (e.getErrorCode() == 2291) {
-	            System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	        	System.out.println("\n==============================================");
+	            System.out.println("\t존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            System.out.println("==============================================");
 	        } else if (e.getErrorCode() == 1 && (e.getMessage().contains("SYS_C008377") || e.getMessage().contains("SYS_C008402"))) {
-	            System.out.println("대여 중 입니다. 다른 책을 선택해주세요.");
+	        	System.out.println("\n==============================================");
+	            System.out.println("\t\t대여 중 입니다. 다른 책을 선택해주세요.");
+	            System.out.println("==============================================\n");
 	        } else {
 	            e.printStackTrace();
 	        }
@@ -381,9 +393,9 @@ public class LibDAO {
 	        pstmt.setString(1, bookname);
 	        int rowCount = pstmt.executeUpdate();
 	        if (rowCount > 0) {
-	        	System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-				System.out.println("\t\t\t\t\t\t    도서 삭제가 완료되었습니다.   \t\t\t\t\t\t");
-				System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+	        	System.out.println("\n==============================================");
+	    		System.out.println("\t    도서 삭제가 완료되었습니다.\t\t");
+	    		System.out.println("==============================================\n");
 	        } else {
 	            String checkSql = "SELECT COUNT(*) FROM t_book WHERE name = ?";
 	            PreparedStatement checkPstmt = conn.prepareStatement(checkSql);
@@ -392,9 +404,13 @@ public class LibDAO {
 	            rs.next();
 	            int count = rs.getInt(1);
 	            if (count == 0) {
-	                System.out.println("존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	            	System.out.println("\n==============================================");
+	                System.out.println("\t존재하지 않는 책입니다. 확인 후 입력해주세요.");
+	                System.out.println("==============================================\n");
 	            } else {
-	                System.out.println("해당 책은 대여 중이므로 삭제가 불가합니다.");
+	            	System.out.println("\n==============================================");
+	                System.out.println("\t해당 책은 대여 중이므로 삭제가 불가합니다.");
+	                System.out.println("==============================================\n");
 	            }
 	            return; 
 	        }
@@ -436,7 +452,7 @@ public class LibDAO {
 			pstmt.setString(1, password);
 			pstmt.setString(2, LibUI.loginUser);
 			pstmt.executeUpdate();
-			System.out.println("Password변경이 완료 되었습니다.");
+			System.out.println("\n*** Password변경이 완료 되었습니다. ***");
 		}catch(Exception e) {
 			
 		}
@@ -458,11 +474,13 @@ public class LibDAO {
 	        pstmt.setString(2, password);
 	        int rowCount = pstmt.executeUpdate();
 	        if (rowCount > 0) {
-	            System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-	            System.out.println("\t\t\t\t\t\t    회원탈퇴가 완료되었습니다.   \t\t\t\t\t\t");
-	            System.out.println("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
+	        	System.out.println("\n==============================================");
+	    		System.out.println("\t\t회원 탈퇴가 완료되었습니다.\t\t");
+	    		System.out.println("==============================================\n");
 	        } else {
-	            System.out.println("대여 중인 도서가 있습니다. 반납 후 탈퇴를 진행해주세요");
+	        	System.out.println("\n==============================================");
+	            System.out.println("   대여 중인 도서가 있습니다. 반납 후 탈퇴를 진행해주세요");
+	            System.out.println("==============================================\n");
 	            return; 
 	        }
 	        new LibUI().execute();

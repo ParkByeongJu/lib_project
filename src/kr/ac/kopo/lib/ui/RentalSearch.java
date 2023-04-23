@@ -18,12 +18,12 @@ public class RentalSearch extends AdminUI {
 	@Override
 	public void execute() throws Exception {
 		List<RentalBookVO> rentalBookList = libService.rentalBookList();
-				
-		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("|\t\t\t\t\t\t       대여 현황 전체 출력\t\t\t\t\t\t\t|");
-		System.out.println("•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••");
-		System.out.println("\t      제목\t\t   대여 회원\t\t   대여 날짜\t\t   반납 날짜\t\t   대여 현황");
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		
+		System.out.println("\n==================================================================");
+		System.out.println("\t\t\t대여 현황 전체 출력\t\t");
+		System.out.println("==================================================================");
+		System.out.print("    제목             대여 회원    대여 날짜\t   반납 날짜        대여 현황\n");
+		System.out.println("==================================================================");
 		LibDAO libDao = new LibDAO();
 		for(RentalBookVO book : rentalBookList) {
 			String name = book.getName() != null ? book.getName() : "";
@@ -31,14 +31,13 @@ public class RentalSearch extends AdminUI {
 	        String rentalDate = book.getRentalDate() != null ? book.getRentalDate().toString() : "-";
 	        String returnDate = book.getReturnDate() != null ? book.getReturnDate().toString() : "-";
 	        String rentalStatus = book.getRentalStatus() != null ? book.getRentalStatus() : "";
-			System.out.printf("       %-22s", name);
-			System.out.printf("     %-24s", member);
-			System.out.printf("%-24s", rentalDate);
-			System.out.printf("%-20s", returnDate);
+			System.out.printf("   %-16s", name);
+			System.out.printf("%-10s", member);
+			System.out.printf("%-13s", rentalDate);
+			System.out.printf("%-13s", returnDate);
 			System.out.printf("%-4s\n", rentalStatus);
 		}
-		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
-
+		System.out.println("==================================================================");
 	}
 
 }
