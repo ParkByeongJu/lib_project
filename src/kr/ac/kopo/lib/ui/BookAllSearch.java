@@ -6,7 +6,7 @@ import kr.ac.kopo.lib.dao.LibDAO;
 import kr.ac.kopo.lib.service.LibService;
 import kr.ac.kopo.lib.vo.BookVO;
 
-public class BookAllSearch extends BaseUI {
+public class BookAllSearch extends BookSearch {
 
 	private LibService libService;
 	

@@ -2,7 +2,7 @@ package kr.ac.kopo.lib.ui;
 
 import java.util.Scanner;
 
-public class MypageUI extends MemberMainUI {
+public class MypageUI extends LoginUI {
 	
 	private int menu() {
 		System.out.println("\n\n-------------------------------------------------------------------------------------------------------------------------");
@@ -37,7 +37,7 @@ public class MypageUI extends MemberMainUI {
 				ui = new BookReturn();
 				break;
 			case 5:
-				ui = new delMember();
+				ui = new DelMember();
 				break;
 			case 0:
 				super.execute();

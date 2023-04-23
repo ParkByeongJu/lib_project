@@ -3,11 +3,11 @@ package kr.ac.kopo.lib.ui;
 import kr.ac.kopo.lib.dao.LibDAO;
 import kr.ac.kopo.lib.service.LibService;
 
-public class delMember extends MemberMainUI {
+public class DelMember extends MypageUI {
 	
 	private LibService libservice;
 	
-	public delMember() {
+	public DelMember() {
 		this.libservice = new LibService();
 	}
 
